@@ -60,6 +60,7 @@ export default {
     let elms = this.$el.querySelectorAll(".pointer_parallax__element");
     elms.forEach(el => {
       let level = el.dataset.level ? +el.dataset.level : 1;
+      if (level > this.levels) this.levels = level;
 
       this.elms.push({
         level,
@@ -154,7 +155,7 @@ export default {
       let _m = this.getMousePosition(e);
 
       let depth = {};
-      for (let i = 0; i < this.level; i++) {
+      for (let i = 1; i < this.levels; i++) {
         depth[i] = {
           x: (_m.x * (this.coef * i)).toFixed(5),
           y: (_m.y * (this.coef * i)).toFixed(5)
@@ -166,7 +167,7 @@ export default {
     getDepth (e) {
       let depth = this.getDepthObj(e);
 
-      for (let i = 0; i < this.level; i++) {
+      for (let i = 1; i < this.levels; i++) {
         depth[i] = `${depth[i].x}%, ${depth[i].y}%`;
       }
 
@@ -176,7 +177,7 @@ export default {
     getDepthReverse (e) {
       let depth = this.getDepthObj(e);
 
-      for (let i = 0; i < this.level; i++) {
+      for (let i = 1; i < this.levels; i++) {
         depth[i] = `${0 - depth[i].x}%, ${0 - depth[i].y}%`;
       }
 
